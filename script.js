@@ -24,7 +24,7 @@ async function main() {
 
     await fetchDataFromWhatsApp('https://web.whatsapp.com/', await browser.newPage());
 
-    for(let i = 0; i < 2; i++) 
+    for(let i = 0; i < whatsAppData.length; i++) 
     {
         let ob = whatsAppData[i];
         let heading = ob.title;
@@ -42,13 +42,11 @@ async function main() {
     await fetchDataFromCoronaDashboard('http://corona.delhi.gov.in/', await browser.newPage());
 
     let tweet1 = 'Available ICU Beds with Ventilators  🛏\n';
-    for(let i = 0; i < 11; i++) 
+    for(let i = 0; i < availableBeds.length; i++) 
     {
-        if(i == 4 || i == 5 || i == 6 || i == 7 || i == 8 || i == 9) continue;
-
         let ob = coronaDashboardData[i];
 
-        let str = `${i == 10 ? 5 : i+1}. ${ob.name}     ${ob.vacant}/${ob.total}    📞${ob.contact}`;
+        let str = `${i+1}. ${ob.name}     ${ob.vacant}/${ob.total}    📞${ob.contact}`;
         tweet1 += str + '\n';
     }
 
@@ -91,7 +89,7 @@ async function fetchDataFromWhatsApp(url, tab) {
     await wait(2000);
     let msgs = await tab.$$('._3ExzF');
 
-    for(let i = 0; i < 2; i++)
+    for(let i = 0; i < msgs.length; i++)
     {
         await getMessage(msgs[i], tab);
     }
